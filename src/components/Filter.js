@@ -2,13 +2,28 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Filter() {
-  const [data, setData] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
+
+  const filterByCategory = async (catID) => {
+    await axios
+      .get(
+        `https://5fe8885b2e12ee0017ab47c0.mockapi.io/api/v1//movies?categoryId=${catID}`
+      )
+      .then((result) => {
+        console.log(result.data);
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data.Message);
+        }
+      });
+  };
 
   const getCategories = async () => {
     await axios
       .get("https://5fe8885b2e12ee0017ab47c0.mockapi.io/api/v1/categories")
       .then((result) => {
-        setData(result.data);
+        setCategoryList(result.data);
       })
       .catch(function (error) {
         if (error.response) {
@@ -32,8 +47,12 @@ export default function Filter() {
             data-profile="minimal"
           >
             <option>Category</option>
-            {data.map((item, i) => (
-              <option key={i} id={item.id}>
+            {categoryList.map((item, i) => (
+              <option
+                onChange={() => filterByCategory(item.id)}
+                key={i}
+                id={item.id}
+              >
                 {item.name}
               </option>
             ))}
