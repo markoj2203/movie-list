@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: cornflowerblue;
+}
+
+.card {
+  height: 16rem;
+  margin: 2%;
+}
+
+.card-text {
+  min-height: 130px;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.form-group {
+  width: 30%;
+  padding: 1%;
+  padding-right: 2%;
+}
