@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: cornflowerblue;
+}
+
+.app-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.app-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20%;
+  background: coral;
+}
+
+.app-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  background: darkgoldenrod;
+}
