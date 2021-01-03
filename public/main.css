@@ -8,26 +8,13 @@ body {
   background: cornflowerblue;
 }
 
-.app-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+.card {
+  height: 16rem;
+  margin: 2%;
 }
 
-.app-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 20%;
-  background: coral;
-}
-
-.app-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80%;
-  background: darkgoldenrod;
+.card-text {
+  min-height: 130px;
+  max-height: 140px;
+  overflow-y: auto;
 }
