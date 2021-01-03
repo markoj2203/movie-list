@@ -18,3 +18,9 @@ body {
   max-height: 140px;
   overflow-y: auto;
 }
+
+.form-group {
+  width: 30%;
+  padding: 1%;
+  padding-right: 2%;
+}
