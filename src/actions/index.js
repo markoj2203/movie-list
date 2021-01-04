@@ -4,3 +4,10 @@ export const getMovieByCategory = (data) => {
     payload: data,
   };
 };
+
+export const setMovieID = (id) => {
+  return {
+    type: "SET_MOVIE_ID",
+    payload: id,
+  };
+};

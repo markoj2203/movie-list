@@ -9,8 +9,18 @@ const getMovieByCategory = (state = [], action) => {
   }
 };
 
+const setMovieID = (state = "", action) => {
+  switch (action.type) {
+    case "SET_MOVIE_ID":
+      return { ...state, id: action.id };
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   getMovieByCategory,
+  setMovieID,
 });
 
 export default rootReducer;

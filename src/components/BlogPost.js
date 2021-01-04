@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Spinner from "./Spinner";
+import { Link } from "react-router-dom";
 
 export default function BlogPost() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const dataByCategory = useSelector((state) => state.getMovieByCategory.data);
+  const dispatch = useDispatch();
+
+  const goToMovieData = (movieID) => {
+    dispatch({ type: "SET_MOVIE_ID", id: movieID });
+  };
 
   const getBlogPosts = async () => {
     setLoading(true);
     await axios
       .get("https://5fe8885b2e12ee0017ab47c0.mockapi.io/api/v1/movies")
       .then((result) => {
+        console.log(result.data);
         setData(result.data);
         setLoading(false);
       })
@@ -47,9 +54,13 @@ export default function BlogPost() {
                 <div className="card-body">
                   <h5 className="card-title">{item.name}</h5>
                   <p className="card-text">{item.description}</p>
-                  <a href="#" className="card-link">
+                  <Link
+                    to="/movie"
+                    className="card-link"
+                    onClick={() => goToMovieData(item.id)}
+                  >
                     Go to movie...
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

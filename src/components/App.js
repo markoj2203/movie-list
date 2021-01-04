@@ -2,14 +2,26 @@ import React from "react";
 import Header from "./Header";
 import Filter from "./Filter";
 import BlogPost from "./BlogPost";
+import Movie from "./Movie";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="container">
-      <Header />
-      <Filter />
-      <BlogPost />
-    </div>
+    <Router>
+      <div className="container">
+        <Switch>
+          <Route path="/" exact>
+            <Header />
+            <Filter />
+            <BlogPost />
+          </Route>
+          <Route path="/movie">
+            <Header />
+            <Movie />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
