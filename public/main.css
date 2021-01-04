@@ -3,24 +3,41 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   background: cornflowerblue;
 }
-
-.card {
-  height: 16rem;
-  margin: 2%;
-}
-
-.card-text {
+.card-text-post {
   min-height: 130px;
   max-height: 140px;
   overflow-y: auto;
 }
-
 .form-group {
   width: 30%;
   padding: 1%;
   padding-right: 2%;
+}
+.card-movie {
+  height: 16rem;
+  margin: 2%;
+}
+.movie-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.movie-img {
+  display: flex;
+  width: auto;
+  padding: 2%;
+}
+.text-comment {
+  display: flex;
+  justify-content: flex-start;
+}
+.time-comment {
+  display: flex;
+  justify-content: flex-end;
+  font-size: small;
+  font-style: oblique;
 }

@@ -19,7 +19,6 @@ export default function BlogPost() {
     await axios
       .get("https://5fe8885b2e12ee0017ab47c0.mockapi.io/api/v1/movies")
       .then((result) => {
-        console.log(result.data);
         setData(result.data);
         setLoading(false);
       })
@@ -50,10 +49,10 @@ export default function BlogPost() {
         <>
           {data.map((item, i) => (
             <div key={i} className="col-md-6 col-lg-4 col-xl-3">
-              <div className="card">
+              <div className="card card-movie">
                 <div className="card-body">
                   <h5 className="card-title">{item.name}</h5>
-                  <p className="card-text">{item.description}</p>
+                  <p className="card-text card-text-post">{item.description}</p>
                   <Link
                     to="/movie"
                     className="card-link"
