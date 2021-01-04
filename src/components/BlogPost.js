@@ -11,6 +11,7 @@ export default function BlogPost() {
   const dispatch = useDispatch();
 
   const goToMovieData = (movieID) => {
+    localStorage.setItem("movieID", movieID);
     dispatch({ type: "SET_MOVIE_ID", id: movieID });
   };
 
