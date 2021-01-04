@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 export default function BlogPost() {
   const [data, setData] = useState([]);
+  const dataByCategory = useSelector((state) => state.getMovieByCategory.data);
 
   const getBlogPosts = async () => {
     await axios
@@ -18,8 +20,12 @@ export default function BlogPost() {
   };
 
   useEffect(() => {
-    getBlogPosts();
-  }, []);
+    if (dataByCategory.length > 0) {
+      setData(dataByCategory);
+    } else {
+      getBlogPosts();
+    }
+  }, [dataByCategory]);
 
   return (
     <div className="row">
