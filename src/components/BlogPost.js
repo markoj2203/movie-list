@@ -20,8 +20,12 @@ export default function BlogPost() {
   };
 
   useEffect(() => {
-    if (dataByCategory.length > 0) {
-      setData(dataByCategory);
+    if (dataByCategory !== undefined) {
+      if (dataByCategory.length > 0) {
+        setData(dataByCategory);
+      } else {
+        getBlogPosts();
+      }
     } else {
       getBlogPosts();
     }
