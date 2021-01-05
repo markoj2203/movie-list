@@ -6,6 +6,7 @@ export default function Filter() {
   const [categoryList, setCategoryList] = useState([]);
   const dispatch = useDispatch();
 
+  //Geting movie data by category
   const filterByCategory = async (event) => {
     const catID = event.target.value;
     await axios
@@ -22,6 +23,7 @@ export default function Filter() {
       });
   };
 
+  //Get list of all categories
   const getCategories = async () => {
     await axios
       .get("https://5fe8885b2e12ee0017ab47c0.mockapi.io/api/v1/categories")

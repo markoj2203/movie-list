@@ -10,6 +10,7 @@ export default function BlogPost() {
   const dataByCategory = useSelector((state) => state.getMovieByCategory.data);
   const dispatch = useDispatch();
 
+  //Memorise some movie data and dispatch them to movie page
   const goToMovieData = (movieID, imdbID) => {
     localStorage.setItem("movieID", movieID);
     localStorage.setItem("imdbID", imdbID);
@@ -17,6 +18,7 @@ export default function BlogPost() {
     dispatch({ type: "SET_IMDB_ID", id: imdbID });
   };
 
+  //List movies on page
   const getBlogPosts = async () => {
     setLoading(true);
     await axios

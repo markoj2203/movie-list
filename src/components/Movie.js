@@ -13,6 +13,7 @@ export default function Movie() {
   const [comments, setComments] = useState([]);
   const [trailerID, setTrailerID] = useState("");
 
+  //Get trailer from imdb api
   const getMovieTrailer = async () => {
     const options = {
       method: "GET",
@@ -35,6 +36,7 @@ export default function Movie() {
       });
   };
 
+  //Get movie data
   const getMovieData = async () => {
     await axios
       .get(`https://5fe8885b2e12ee0017ab47c0.mockapi.io/api/v1/movies/${id}`)
@@ -48,16 +50,14 @@ export default function Movie() {
       });
   };
 
+  //Get movie comments
   const getMovieComments = async () => {
-    //setLoading(true);
     await axios
       .get(
         `https://5fe8885b2e12ee0017ab47c0.mockapi.io/api/v1/movies/${id}/comments`
       )
       .then((result) => {
-        //console.log(result.data);
         setComments(result.data);
-        //setLoading(false);
       })
       .catch(function (error) {
         if (error.response) {
@@ -67,6 +67,7 @@ export default function Movie() {
   };
 
   useEffect(() => {
+    //solving problem with iframe and back browser button
     window.onbeforeunload = function () {
       window.location.href = "http://localhost:3000/";
     };
