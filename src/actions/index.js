@@ -11,3 +11,10 @@ export const setMovieID = (id) => {
     payload: id,
   };
 };
+
+export const setImdbID = (id) => {
+  return {
+    type: "SET_IMDB_ID",
+    payload: id,
+  };
+};

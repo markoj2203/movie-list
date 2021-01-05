@@ -5,21 +5,63 @@ import { toggleElement } from "../functions/main";
 
 export default function Movie() {
   const movieID = useSelector((state) => state.setMovieID.id);
+  const imdbID = useSelector((state) => state.setImdbID.id);
 
   const id = movieID !== undefined ? movieID : localStorage.getItem("movieID");
+  const idImdb = imdbID !== undefined ? imdbID : localStorage.getItem("imdbID");
 
   const [data, setData] = useState([]);
   const [comments, setComments] = useState([]);
+  const [trailerID, setTrailerID] = useState("");
+
+  const getMovieTrailer = async () => {
+    const options = {
+      method: "GET",
+      url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${idImdb}`,
+      headers: {
+        "x-rapidapi-key": "c05cb70ecemsh7b501c8dc7439c8p1f76ccjsndabb9bdf0a8b",
+        "x-rapidapi-host":
+          "imdb-internet-movie-database-unofficial.p.rapidapi.com",
+      },
+    };
+
+    await axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data.trailer.id);
+        setTrailerID(response.data.trailer.id);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  const publishComment = async () => {
+    await axios
+      .post(
+        `https://5fe8885b2e12ee0017ab47c0.mockapi.io/api/v1/movies/${id}/comment`,
+        { text: "test" },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((result) => {
+        setData(result.data);
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data.Message);
+        }
+      });
+  };
 
   const getMovieData = async () => {
-    //setLoading(true);
-
     await axios
       .get(`https://5fe8885b2e12ee0017ab47c0.mockapi.io/api/v1/movies/${id}`)
       .then((result) => {
-        //console.log(result.data);
         setData(result.data);
-        //setLoading(false);
       })
       .catch(function (error) {
         if (error.response) {
@@ -48,18 +90,35 @@ export default function Movie() {
 
   useEffect(() => {
     getMovieData();
+    getMovieTrailer();
     getMovieComments();
   }, [movieID]);
 
   return (
     <div className="movie-container">
-      <div className="card" style={{ width: "30rem" }}>
+      <div className="card" style={{ width: "40rem" }}>
         <img className="movie-img" src={data.imageUrl} />
         <div className="card-body">
+          <p className="card-text">Movie Name:</p>
           <h5 className="card-title">{data.name}</h5>
+          <p className="card-text">Description:</p>
           <p className="card-text">{data.description}</p>
         </div>
+        <hr />
 
+        <div className="card-body">
+          <h5 className="card-title">
+            <label>Official Trailer </label>
+          </h5>
+          <div className="frame-content">
+            <iframe
+              width="500"
+              height="315"
+              src={`https://www.imdb.com/video/imdb/${trailerID}/imdb/embed?autoplay=false&width=480`}
+            ></iframe>
+          </div>
+        </div>
+        <hr />
         <div id="accordion">
           <div className="card">
             <div className="card-header" id="headingOne">
@@ -92,6 +151,26 @@ export default function Movie() {
                     <p className="time-comment">{item.createdAt}</p>
                   </div>
                 ))}
+                <div className="card-text" style={{ width: "100%" }}>
+                  <hr />
+                  <h5>Leave a comment</h5>
+                  <textarea
+                    placeholder="Write comment:"
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div
+                  className="card-text"
+                  style={{ display: "flex", justifyContent: "flex-end" }}
+                >
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={publishComment}
+                  >
+                    Publish
+                  </button>
+                </div>
               </div>
             </div>
           </div>

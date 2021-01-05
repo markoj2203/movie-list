@@ -10,9 +10,11 @@ export default function BlogPost() {
   const dataByCategory = useSelector((state) => state.getMovieByCategory.data);
   const dispatch = useDispatch();
 
-  const goToMovieData = (movieID) => {
+  const goToMovieData = (movieID, imdbID) => {
     localStorage.setItem("movieID", movieID);
+    localStorage.setItem("imdbID", imdbID);
     dispatch({ type: "SET_MOVIE_ID", id: movieID });
+    dispatch({ type: "SET_IMDB_ID", id: imdbID });
   };
 
   const getBlogPosts = async () => {
@@ -20,6 +22,7 @@ export default function BlogPost() {
     await axios
       .get("https://5fe8885b2e12ee0017ab47c0.mockapi.io/api/v1/movies")
       .then((result) => {
+        console.log(result.data);
         setData(result.data);
         setLoading(false);
       })
@@ -57,7 +60,7 @@ export default function BlogPost() {
                   <Link
                     to="/movie"
                     className="card-link"
-                    onClick={() => goToMovieData(item.id)}
+                    onClick={() => goToMovieData(item.id, item.imdbId)}
                   >
                     Go to movie...
                   </Link>

@@ -18,9 +18,19 @@ const setMovieID = (state = "", action) => {
   }
 };
 
+const setImdbID = (state = "", action) => {
+  switch (action.type) {
+    case "SET_IMDB_ID":
+      return { ...state, id: action.id };
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   getMovieByCategory,
   setMovieID,
+  setImdbID,
 });
 
 export default rootReducer;

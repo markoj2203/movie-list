@@ -16,7 +16,6 @@ function App() {
             <BlogPost />
           </Route>
           <Route path="/movie">
-            <Header />
             <Movie />
           </Route>
         </Switch>
