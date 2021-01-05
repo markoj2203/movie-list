@@ -22,7 +22,6 @@ export default function BlogPost() {
     await axios
       .get("https://5fe8885b2e12ee0017ab47c0.mockapi.io/api/v1/movies")
       .then((result) => {
-        console.log(result.data);
         setData(result.data);
         setLoading(false);
       })

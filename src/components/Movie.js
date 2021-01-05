@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { toggleElement } from "../functions/main";
+import GoogleAuth from "./GoogleAuth";
 
 export default function Movie() {
   const movieID = useSelector((state) => state.setMovieID.id);
   const imdbID = useSelector((state) => state.setImdbID.id);
-
   const id = movieID !== undefined ? movieID : localStorage.getItem("movieID");
   const idImdb = imdbID !== undefined ? imdbID : localStorage.getItem("imdbID");
-
   const [data, setData] = useState([]);
   const [comments, setComments] = useState([]);
   const [trailerID, setTrailerID] = useState("");
@@ -28,32 +27,11 @@ export default function Movie() {
     await axios
       .request(options)
       .then(function (response) {
-        console.log(response.data.trailer.id);
+        //console.log(response.data.trailer.id);
         setTrailerID(response.data.trailer.id);
       })
       .catch(function (error) {
         console.error(error);
-      });
-  };
-
-  const publishComment = async () => {
-    await axios
-      .post(
-        `https://5fe8885b2e12ee0017ab47c0.mockapi.io/api/v1/movies/${id}/comment`,
-        { text: "test" },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((result) => {
-        setData(result.data);
-      })
-      .catch(function (error) {
-        if (error.response) {
-          console.log(error.response.data.Message);
-        }
       });
   };
 
@@ -89,6 +67,9 @@ export default function Movie() {
   };
 
   useEffect(() => {
+    window.onbeforeunload = function () {
+      window.location.href = "http://localhost:3000/";
+    };
     getMovieData();
     getMovieTrailer();
     getMovieComments();
@@ -141,7 +122,6 @@ export default function Movie() {
               className="collapse show"
               aria-labelledby="headingOne"
               data-parent="#accordion"
-              style={{ display: "none" }}
             >
               <div className="card-body">
                 {comments.map((item, i) => (
@@ -155,6 +135,7 @@ export default function Movie() {
                   <hr />
                   <h5>Leave a comment</h5>
                   <textarea
+                    id="text-content"
                     placeholder="Write comment:"
                     style={{ width: "100%" }}
                   />
@@ -163,13 +144,7 @@ export default function Movie() {
                   className="card-text"
                   style={{ display: "flex", justifyContent: "flex-end" }}
                 >
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={publishComment}
-                  >
-                    Publish
-                  </button>
+                  <GoogleAuth />
                 </div>
               </div>
             </div>
